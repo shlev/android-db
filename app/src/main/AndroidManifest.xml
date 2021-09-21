@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.tutorial.brave_db_managment">
+    package="com.android.tutorial.db_managment">
 
     <application
         android:allowBackup="true"
@@ -8,14 +8,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Bravedbmanagment">
+        android:theme="@style/Theme.dbmanagment">
         <activity
-            android:name=".AddEditUserActivity"
+            android:name="com.android.tutorial.db_managment.AddEditUserActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.android.tutorial.db_managment.MainActivity"
             />
         <activity
-            android:name=".MainActivity"
+            android:name="com.android.tutorial.db_managment.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             >

@@ -1,18 +1,14 @@
-package com.android.tutorial.brave_db_managment;
+package com.android.tutorial.db_managment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserAdapter extends ListAdapter<UserAndRole, UserAdapter.UserHolder> {
 

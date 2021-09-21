@@ -1,4 +1,4 @@
-package com.android.tutorial.brave_db_managment;
+package com.android.tutorial.db_managment;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

@@ -1,4 +1,4 @@
-package com.android.tutorial.brave_db_managment;
+package com.android.tutorial.db_managment;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -13,7 +13,7 @@ public class UserRepository {
     private LiveData<List<UserAndRole>> allUserAndRoles;
 
     public UserRepository(Application application) {
-        BraveDatabase database = BraveDatabase.getInstance(application);
+        OrganizationDatabase database = OrganizationDatabase.getInstance(application);
         userDao = database.userDao();
 //        allUsers = userDao.getAllUsers();
         allUserAndRoles = userDao.getAllUsersAndRoles();

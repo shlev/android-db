@@ -1,4 +1,4 @@
-package com.android.tutorial.brave_db_managment;
+package com.android.tutorial.db_managment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +13,11 @@ import android.widget.Toast;
 
 public class AddEditUserActivity extends AppCompatActivity {
 
-    public static final String EXTRA_ID = "com.android.tutorial.brave_db_managment.EXTRA_ID";
-    public static final String EXTRA_NAME = "com.android.tutorial.brave_db_managment.EXTRA_NAME";
-    public static final String EXTRA_EMAIL = "com.android.tutorial.brave_db_managment.EXTRA_EMAIL";
-    public static final String EXTRA_PHONE = "com.android.tutorial.brave_db_managment.EXTRA_PHONE";
-    public static final String EXTRA_ROLE = "com.android.tutorial.brave_db_managment.EXTRA_ROLE";
+    public static final String EXTRA_ID = "com.android.tutorial.android_db_managment.EXTRA_ID";
+    public static final String EXTRA_NAME = "com.android.tutorial.android_db_managment.EXTRA_NAME";
+    public static final String EXTRA_EMAIL = "com.android.tutorial.android_db_managment.EXTRA_EMAIL";
+    public static final String EXTRA_PHONE = "com.android.tutorial.android_db_managment.EXTRA_PHONE";
+    public static final String EXTRA_ROLE = "com.android.tutorial.android_db_managment.EXTRA_ROLE";
 
     private EditText editTextName;
     private EditText editTextEmail;

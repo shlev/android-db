@@ -1,4 +1,4 @@
-package com.android.tutorial.brave_db_managment;
+package com.android.tutorial.db_managment;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -10,16 +10,16 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database( entities = { User.class, Role.class}, version = 1)
-public abstract class BraveDatabase extends RoomDatabase {
-    private static BraveDatabase instance;
+public abstract class OrganizationDatabase extends RoomDatabase {
+    private static OrganizationDatabase instance;
     public abstract UserDao userDao();
     public abstract RoleDao roleDao();
 
 
-    public static synchronized BraveDatabase getInstance(Context context) {
+    public static synchronized OrganizationDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    BraveDatabase.class, "brave_database")
+                    OrganizationDatabase.class, "org_database")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
@@ -39,7 +39,7 @@ public abstract class BraveDatabase extends RoomDatabase {
         private UserDao noteDao;
         private RoleDao roleDao;
 
-        private PopulateDbAsyncTask(BraveDatabase braveDatabase) {
+        private PopulateDbAsyncTask(OrganizationDatabase braveDatabase) {
             this.noteDao = braveDatabase.userDao();
             this.roleDao = braveDatabase.roleDao();
         }
@@ -47,12 +47,12 @@ public abstract class BraveDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             long adminID = roleDao.insert(new Role(30, "ADMIN"));
-            long heroID = roleDao.insert(new Role(20, "HERO"));
-            long volID = roleDao.insert(new Role(10, "VOLUNTEER"));
+            long workerID = roleDao.insert(new Role(20, "WORKER"));
+            long manID = roleDao.insert(new Role(10, "MANAGER"));
 
-            noteDao.insert(new User("Super", "super@brave.com","1234512345", adminID));
-            noteDao.insert(new User("David", "brave@brave.com","1234512345" , heroID));
-            noteDao.insert(new User("Yury", "voly@brave.com","1234512345", volID ));
+            noteDao.insert(new User("Super", "super@myorg.com","1234512345", adminID));
+            noteDao.insert(new User("David", "david@myorg.com","1234512345" , workerID));
+            noteDao.insert(new User("Yury", "voly@myorg.com","1234512345", manID ));
             return null;
         }
     }

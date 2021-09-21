@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
         final UserAdapter adapter = new UserAdapter();
         recyclerView.setAdapter(adapter);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.getAllUsers().observe(this, new Observer<List<User>>() {
+        userViewModel.getAllUsers().observe(this, new Observer<List<UserAndRole>>() {
             @Override
-            public void onChanged(List<User> users) {
+            public void onChanged(List<UserAndRole> users) {
                 // update recycler
 //                Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
                 adapter.submitList(users);
@@ -71,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(new UserAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(User user) {
+            public void onItemClick(UserAndRole user) {
                 Intent intent = new Intent(MainActivity.this, AddEditUserActivity.class);
 
-                intent.putExtra(AddEditUserActivity.EXTRA_ID, user.getId());
-                intent.putExtra(AddEditUserActivity.EXTRA_NAME, user.getName());
-                intent.putExtra(AddEditUserActivity.EXTRA_EMAIL, user.getEmail());
-                intent.putExtra(AddEditUserActivity.EXTRA_PHONE, user.getPhone());
-                intent.putExtra(AddEditUserActivity.EXTRA_ROLE, user.getRole());
+                intent.putExtra(AddEditUserActivity.EXTRA_ID, user.getUser().getId());
+                intent.putExtra(AddEditUserActivity.EXTRA_NAME, user.getUser().getName());
+                intent.putExtra(AddEditUserActivity.EXTRA_EMAIL, user.getUser().getEmail());
+                intent.putExtra(AddEditUserActivity.EXTRA_PHONE, user.getUser().getPhone());
+                intent.putExtra(AddEditUserActivity.EXTRA_ROLE, user.getRole().getName());
 
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
             }
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             String email = data.getStringExtra(AddEditUserActivity.EXTRA_EMAIL);
             String phone = data.getStringExtra(AddEditUserActivity.EXTRA_PHONE);
             String role = data.getStringExtra(AddEditUserActivity.EXTRA_ROLE);
-            User user = new User(name, email, phone, role);
+            User user = new User(name, email, phone, 3);
             userViewModel.insert(user);
             Toast.makeText(this, "User Saved", Toast.LENGTH_SHORT).show();
         } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             String email = data.getStringExtra(AddEditUserActivity.EXTRA_EMAIL);
             String phone = data.getStringExtra(AddEditUserActivity.EXTRA_PHONE);
             String role = data.getStringExtra(AddEditUserActivity.EXTRA_ROLE);
-            User user = new User(name, email, phone, role);
+            User user = new User(name, email, phone, 0);
             user.setId(id);
             userViewModel.update(user);
             Toast.makeText(this, "User updated", Toast.LENGTH_SHORT).show();

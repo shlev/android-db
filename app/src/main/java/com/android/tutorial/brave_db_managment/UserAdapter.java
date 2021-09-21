@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserAdapter extends ListAdapter<User, UserAdapter.UserHolder> {
+public class UserAdapter extends ListAdapter<UserAndRole, UserAdapter.UserHolder> {
 
     private OnItemClickListener listener;
 
@@ -22,18 +22,18 @@ public class UserAdapter extends ListAdapter<User, UserAdapter.UserHolder> {
         super(DIFF_CALLBACK);
     }
 
-    private static final DiffUtil.ItemCallback<User> DIFF_CALLBACK = new DiffUtil.ItemCallback<User>() {
+    private static final DiffUtil.ItemCallback<UserAndRole> DIFF_CALLBACK = new DiffUtil.ItemCallback<UserAndRole>() {
         @Override
-        public boolean areItemsTheSame(@NonNull User oldItem, @NonNull User newItem) {
-            return oldItem.getId() == newItem.getId();
+        public boolean areItemsTheSame(@NonNull UserAndRole oldItem, @NonNull UserAndRole newItem) {
+            return oldItem.getUser().getId() == newItem.getUser().getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull User oldItem, @NonNull User newItem) {
-            return oldItem.getName().equals(newItem.getName()) &&
-                    oldItem.getEmail().equals(newItem.getEmail()) &&
-                    oldItem.getPhone().equals(newItem.getPhone()) &&
-                    oldItem.getRole().equals(newItem.getRole());
+        public boolean areContentsTheSame(@NonNull UserAndRole oldItem, @NonNull UserAndRole newItem) {
+            return oldItem.getUser().getName().equals(newItem.getUser().getName()) &&
+                    oldItem.getUser().getEmail().equals(newItem.getUser().getEmail()) &&
+                    oldItem.getUser().getPhone().equals(newItem.getUser().getPhone()) &&
+                    oldItem.getRole().getName().equals(newItem.getRole().getName());
          }
     };
 
@@ -47,16 +47,16 @@ public class UserAdapter extends ListAdapter<User, UserAdapter.UserHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull UserHolder holder, int position) {
-        User currentUser = getItem(position);
-        holder.textViewName.setText(currentUser.getName());
-        holder.textViewEmail.setText(currentUser.getEmail());
-        holder.textViewPhone.setText(currentUser.getPhone());
-        holder.textViewRole.setText(currentUser.getRole());
+        UserAndRole currentUser = getItem(position);
+        holder.textViewName.setText(currentUser.getUser().getName());
+        holder.textViewEmail.setText(currentUser.getUser().getEmail());
+        holder.textViewPhone.setText(currentUser.getUser().getPhone());
+        holder.textViewRole.setText(currentUser.getRole().getName());
     }
 
 
 
-    public User getUserAt(int position) {
+    public UserAndRole getUserAt(int position) {
         return getItem(position);
     }
 
@@ -87,7 +87,7 @@ public class UserAdapter extends ListAdapter<User, UserAdapter.UserHolder> {
     }
 
     public interface OnItemClickListener{
-        void onItemClick(User user);
+        void onItemClick(UserAndRole user);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

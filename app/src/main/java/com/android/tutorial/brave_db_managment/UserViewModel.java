@@ -11,7 +11,7 @@ import java.util.List;
 public class UserViewModel extends AndroidViewModel {
     
     private UserRepository repository;
-    private LiveData<List<User>> allUsers;
+    private LiveData<List<UserAndRole>> allUsers;
     
     public UserViewModel(@NonNull Application application) {
         super(application);
@@ -31,11 +31,15 @@ public class UserViewModel extends AndroidViewModel {
         repository.delete(user);
     }
 
+    public void delete(UserAndRole userAndRole) {
+        repository.delete(userAndRole.getUser());
+    }
+
     public void deleteAllUsers() {
         repository.deleteAllUsers();
     }
 
-    public LiveData<List<User>> getAllUsers() {
+    public LiveData<List<UserAndRole>> getAllUsers() {
         return allUsers;
     }
 }

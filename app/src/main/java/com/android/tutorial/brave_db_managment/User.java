@@ -12,13 +12,15 @@ public class User {
     private String name;
     private String email;
     private String phone;
-    private String role;
 
-    public User(String name, String email, String phone, String role) {
+    private long roleID;
+
+
+    public User(String name, String email, String phone, long roleID) {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.role = role;
+        this.roleID = roleID;
     }
 
     public void setId(int id) {
@@ -41,7 +43,5 @@ public class User {
         return phone;
     }
 
-    public String getRole() {
-        return role;
-    }
+    public long getRoleID() { return roleID;}
 }

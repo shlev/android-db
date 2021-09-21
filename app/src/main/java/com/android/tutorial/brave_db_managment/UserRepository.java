@@ -10,11 +10,13 @@ import java.util.List;
 public class UserRepository {
     private UserDao userDao;
     private LiveData<List<User>> allUsers;
+    private LiveData<List<UserAndRole>> allUserAndRoles;
 
     public UserRepository(Application application) {
         BraveDatabase database = BraveDatabase.getInstance(application);
         userDao = database.userDao();
-        allUsers = userDao.getAllUsers();
+//        allUsers = userDao.getAllUsers();
+        allUserAndRoles = userDao.getAllUsersAndRoles();
     }
 
     public void insert(User user) {
@@ -33,8 +35,8 @@ public class UserRepository {
         new DeleteAllUsersAsyncTask(userDao).execute();
     }
 
-    public LiveData<List<User>> getAllUsers() {
-        return allUsers;
+    public LiveData<List<UserAndRole>> getAllUsers() {
+        return allUserAndRoles;
     }
 
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {
@@ -93,17 +95,17 @@ public class UserRepository {
         }
     }
 
-    private static class GetAllUsersAsyncTask extends AsyncTask<User, Void, Void> {
-        private UserDao userDao;
-
-        private GetAllUsersAsyncTask(UserDao userDao) {
-            this.userDao = userDao;
-        }
-
-        @Override
-        protected Void doInBackground(User... users) {
-            userDao.getAllUsers();
-            return null;
-        }
-    }
+//    private static class GetAllUsersAsyncTask extends AsyncTask<User, Void, Void> {
+//        private UserDao userDao;
+//
+//        private GetAllUsersAsyncTask(UserDao userDao) {
+//            this.userDao = userDao;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(User... users) {
+//            userDao.getAllUsers();
+//            return null;
+//        }
+//    }
 }

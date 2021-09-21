@@ -9,10 +9,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database( entities = { User.class}, version = 2)
+@Database( entities = { User.class, Role.class}, version = 1)
 public abstract class BraveDatabase extends RoomDatabase {
     private static BraveDatabase instance;
     public abstract UserDao userDao();
+    public abstract RoleDao roleDao();
+
 
     public static synchronized BraveDatabase getInstance(Context context) {
         if (instance == null) {
@@ -35,16 +37,22 @@ public abstract class BraveDatabase extends RoomDatabase {
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private UserDao noteDao;
+        private RoleDao roleDao;
 
-        private PopulateDbAsyncTask(BraveDatabase noteDatabase) {
-            this.noteDao = noteDatabase.userDao();
+        private PopulateDbAsyncTask(BraveDatabase braveDatabase) {
+            this.noteDao = braveDatabase.userDao();
+            this.roleDao = braveDatabase.roleDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            noteDao.insert(new User("Super", "super@brave.com","1234512345", "SuperUser" ));
-            noteDao.insert(new User("David", "brave@brave.com","1234512345", "Hero" ));
-//            noteDao.insert(new User("Yury", "voly@brave.com","1234512345", "Volunteer" ));
+            long adminID = roleDao.insert(new Role(30, "ADMIN"));
+            long heroID = roleDao.insert(new Role(20, "HERO"));
+            long volID = roleDao.insert(new Role(10, "VOLUNTEER"));
+
+            noteDao.insert(new User("Super", "super@brave.com","1234512345", adminID));
+            noteDao.insert(new User("David", "brave@brave.com","1234512345" , heroID));
+            noteDao.insert(new User("Yury", "voly@brave.com","1234512345", volID ));
             return null;
         }
     }
